@@ -2,6 +2,7 @@ package com.artsgard.hotelbookingbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +56,14 @@ public class BookerEntity implements Serializable { // UserDetails
     @NotNull
     @Column(name = "booking_date", nullable = false)
     private Date bookingDate;
+    
+    @NotNull
+    @Column(name = "nights", nullable = false)
+    private Integer nights;
+    
+    @NotNull
+    @Column(name = "final_price", nullable = false)
+    private BigDecimal finalPrice;
 
     @NotNull
     @JsonIgnoreProperties("clientBookings")

@@ -5,6 +5,7 @@ import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.entity.ClientEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,6 +82,10 @@ public class BookerDTO implements Serializable {
 
     @NotNull
     private ClientEntity client;
+    
+    private Integer nights;
+    
+    private BigDecimal finalPrice;
     
     @NotNull
     private HotelEntity hotel;
