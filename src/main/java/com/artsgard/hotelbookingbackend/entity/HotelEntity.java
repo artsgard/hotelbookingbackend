@@ -62,11 +62,6 @@ public class HotelEntity implements Serializable {
     @Column(name = "breakfast_included", length = 1000)
     private Boolean breakfastIncluded;
     
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_media_id")
-    private HotelMediaEntity hotelMedia;
-    
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<BookerEntity> hotelBookings;
 }
