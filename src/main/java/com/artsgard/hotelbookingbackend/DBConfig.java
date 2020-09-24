@@ -22,7 +22,7 @@ public class DBConfig {
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/hotel_booker_db");
         //dataSourceBuilder.url("jdbc:postgresql://socioregisterdb:5432/flight_booker_db");
         dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("Candita123");
+        dataSourceBuilder.password("postgres");
         return dataSourceBuilder.build();
     }
 
@@ -42,7 +42,7 @@ public class DBConfig {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url("jdbc:mysql://localhost:3306/hotel_booker_db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC");
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("Candita123");
+        dataSourceBuilder.password("root");
         return dataSourceBuilder.build();
     }
 }

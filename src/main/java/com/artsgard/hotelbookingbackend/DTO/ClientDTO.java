@@ -12,13 +12,15 @@ import lombok.NoArgsConstructor;
  * 
  * @author WillemDragstra
  * 
- *  {
-        "username": "kj",
+ *  client": {
+        "username": "js",
         "password": "secret",
-        "firstName": "Karst",
-        "lastName": "Dehollander",
-        "email": "kdehollander@gmail.com"
-  } 
+        "firstName": "Johann Sebastian",
+        "lastName": "Bach",
+        "email": "jsbach@gmail.com",
+        "registerDate": "2020-09-24T08:56:10.655+0000",
+        "clientBookings": null
+    }
  * 
  */
 @Data

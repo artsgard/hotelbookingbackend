@@ -17,17 +17,39 @@ import lombok.NoArgsConstructor;
  * @author WillemDragstra
  * 
  * {
-        "username": "pbxx",
-        "password": "secretxx",
-        "firstName": "Pierrexxx",
-        "lastName": "Boulezxxx",
-        "email": "boulez@gmailxx.com",
-        "active": true,
-        "socioLanguages": [
-                {"id": "1"},
-                {"id": "2"}
-        ] 
+    "checkInDate": "2020-12-7",
+    "checkOutDate": "2021-1-12",
+    "rooms": 1,
+    "roomType": "DOUBLE",
+    "breakfastIncluded": true,
+    "client": {
+        "id": 1,
+        "username": "js",
+        "password": "secret",
+        "firstName": "Johann Sebastian",
+        "lastName": "Bach",
+        "email": "jsbach@gmail.com",
+        "registerDate": "2020-09-24T08:56:10.655+0000",
+        "clientBookings": null
+    },
+    "hotel": {
+        "id": 1,
+        "name": "City Hotel",
+        "city": "Heerlen",
+        "street": "Wannerplein 23",
+        "breakfastIncluded": true,
+        "description": "Some Nice Hotel",
+        "singleRoom": 60.00,
+        "doubleRoom": 80.00,
+        "tripleRoom": 90.00,
+        "hotelMedia": {
+            "id": 1,
+            "description": "facade",
+            "link": "Some-link",
+            "title": "City Hotel"
+        }
     }
+}
  * 
  */
 @Data
