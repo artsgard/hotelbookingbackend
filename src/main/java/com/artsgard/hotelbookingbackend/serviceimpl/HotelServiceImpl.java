@@ -17,6 +17,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelEntity> getAllHotels() {
+        List<HotelEntity> hotels = hotelRepo.findAll();
         return hotelRepo.findAll();
     }
     

@@ -22,6 +22,7 @@ public class HotelController {
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<HotelEntity>> getAllHotels() {
+        List<HotelEntity> list = hotelService.getAllHotels();
         return new ResponseEntity<>(hotelService.getAllHotels(), HttpStatus.OK);
     }
     

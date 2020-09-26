@@ -68,9 +68,6 @@ public class BookerDTO implements Serializable {
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date checkOutDate;
-     
-    @NotNull
-    private Integer rooms;
 
     @NotNull
     private RoomType roomType;

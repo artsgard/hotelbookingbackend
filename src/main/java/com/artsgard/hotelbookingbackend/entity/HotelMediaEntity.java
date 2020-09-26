@@ -1,5 +1,7 @@
 package com.artsgard.hotelbookingbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +45,8 @@ public class HotelMediaEntity implements Serializable {
     private String description;
     
     @NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
-    private HotelEntity hotel_id;
+    private HotelEntity hotel;
 }

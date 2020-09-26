@@ -12,6 +12,7 @@ import com.artsgard.hotelbookingbackend.repository.HotelMediaRepository;
 import com.artsgard.hotelbookingbackend.repository.HotelRepository;
 import com.artsgard.hotelbookingbackend.service.BookerService;
 import com.artsgard.hotelbookingbackend.service.MapperService;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -66,6 +67,8 @@ public class BookerServiceImpl implements BookerService {
     public BookerDTO saveBooking(BookerDTO bookerDTO) {
         BookerEntity ent = mapperService.mapBookerDTOToBookerEntity(bookerDTO);
         ent.setBookingDate(new Date());
+        ent.setFinalPrice(new BigDecimal("200.00"));
+        ent.setNights(6);
         return mapperService.mapBookerEntityToBookerDTO(bookerRepo.save(ent));
     }
 

@@ -39,12 +39,19 @@ public class HotelEntity implements Serializable {
     private String description;
     
     @NotNull
+    @Column(name = "city", length = 1000)
+    private String city;
+    
+    @NotNull
     @Column(name = "street", length = 100)
     private String street;
     
     @NotNull
-    @Column(name = "city", length = 1000)
-    private String city;
+    @Column(name = "phone", length = 100)
+    private Integer phone;
+     
+    @Column(name = "email", length = 100)
+    private String email;
     
     @NotNull
     @Column(name = "single_room", length = 1000)
@@ -60,8 +67,11 @@ public class HotelEntity implements Serializable {
     
     @NotNull
     @Column(name = "breakfast_included", length = 1000)
-    private Boolean breakfastIncluded;
+    private BigDecimal breakfastIncluded;
     
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<BookerEntity> hotelBookings;
+    
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
+    private List<HotelMediaEntity> hotelMedias;
 }

@@ -1,5 +1,6 @@
 package com.artsgard.hotelbookingbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -29,16 +30,13 @@ public class BookerEntity implements Serializable { // UserDetails
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "check_in_date", nullable = false)
     private Date checkInDate;
 
     @NotNull
     @Column(name = "check_out_date", nullable = false)
     private Date checkOutDate;
-
-    @NotNull
-    @Column(name = "rooms", nullable = true)
-    private Integer rooms;
     
     public enum RoomType {
         SINGLE, DOUBLE, TRIPLE
@@ -66,13 +64,13 @@ public class BookerEntity implements Serializable { // UserDetails
     private BigDecimal finalPrice;
 
     @NotNull
-    @JsonIgnoreProperties("clientBookings")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity client;
     
     @NotNull
-    @JsonIgnoreProperties("hotelBookings")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private HotelEntity hotel;

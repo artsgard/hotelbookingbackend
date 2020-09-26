@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/booker")
 public class BookerController {
     
     org.slf4j.Logger logger = LoggerFactory.getLogger(BookerController.class);
