@@ -43,8 +43,8 @@ public class BookerController {
 
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<BookerDTO> saveBooking(@Valid @RequestBody BookerDTO bookingDTO) {
-        BookerDTO client = bookerService.saveBooking(bookingDTO);
-        return new ResponseEntity<>(client, HttpStatus.CREATED);
+        BookerDTO booker = bookerService.saveBooking(bookingDTO);
+        return new ResponseEntity<>(booker, HttpStatus.CREATED);
         //return ResponseEntity.status(HttpStatus.CREATED).body(client);
     }
 
