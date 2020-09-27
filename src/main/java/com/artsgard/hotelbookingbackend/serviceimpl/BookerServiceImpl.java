@@ -69,37 +69,36 @@ public class BookerServiceImpl implements BookerService {
     public BookerDTO saveBooking(BookerDTO bookerDTO) {
         BookerEntity ent = mapperService.mapBookerDTOToBookerEntity(bookerDTO);
         ent.setBookingDate(new Date());
-        
+
         HotelEntity hotel = bookerDTO.getHotel();
-        
+
         BigDecimal roomPrice = new BigDecimal("0");
-        
+
         switch (bookerDTO.getRoomType()) {
             case SINGLE:
                 roomPrice = hotel.getSingleRoom();
                 break;
             case DOUBLE:
                 roomPrice = hotel.getDoubleRoom();
-                break; 
+                break;
             case TRIPLE:
                 roomPrice = hotel.getTripleRoom();
                 break;
             default:
                 break;
         }
-        
-        BigDecimal breakfastPrice;
-        if(bookerDTO.getBreakfastIncluded()) {
-            roomPrice = roomPrice.add(hotel.getBreakfastIncluded());
-        }
-        
+
         Date checkIn = bookerDTO.getCheckInDate();
         Date checkOut = bookerDTO.getCheckOutDate();
         Long days = ChronoUnit.DAYS.between(checkIn.toInstant(), checkOut.toInstant());
         roomPrice = roomPrice.multiply(new BigDecimal(days.toString()));
-        
+
         ent.setNights(days.intValue());
-        
+
+        if (bookerDTO.getBreakfastIncluded()) {
+            roomPrice = roomPrice.add(hotel.getBreakfastIncluded());
+        }
+
         ent.setFinalPrice(roomPrice);
 
         return mapperService.mapBookerEntityToBookerDTO(bookerRepo.save(ent));
