@@ -87,6 +87,10 @@ public class BookerServiceImpl implements BookerService {
             default:
                 break;
         }
+        
+        if (bookerDTO.getBreakfastIncluded()) {
+            roomPrice = roomPrice.add(hotel.getBreakfastIncluded());
+        }
 
         Date checkIn = bookerDTO.getCheckInDate();
         Date checkOut = bookerDTO.getCheckOutDate();
@@ -94,10 +98,6 @@ public class BookerServiceImpl implements BookerService {
         roomPrice = roomPrice.multiply(new BigDecimal(days.toString()));
 
         ent.setNights(days.intValue());
-
-        if (bookerDTO.getBreakfastIncluded()) {
-            roomPrice = roomPrice.add(hotel.getBreakfastIncluded());
-        }
 
         ent.setFinalPrice(roomPrice);
 
