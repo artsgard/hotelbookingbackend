@@ -1,6 +1,7 @@
 package com.artsgard.hotelbookingbackend.serviceimpl;
 
-import com.artsgard.hotelbookingbackend.entity.ClientEntity;
+import com.artsgard.hotelbookingbackend.DTO.HotelDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelMediaDTO;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.entity.HotelMediaEntity;
 import com.artsgard.hotelbookingbackend.exception.ResourceNotFoundException;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.artsgard.hotelbookingbackend.repository.HotelRepository;
 import com.artsgard.hotelbookingbackend.service.HotelService;
+import com.artsgard.hotelbookingbackend.service.MapperService;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -21,83 +24,101 @@ public class HotelServiceImpl implements HotelService {
     @Autowired
     HotelMediaRepository hotelMediaRepo;
 
+    @Autowired
+    private MapperService mapperService;
+
     @Override
-    public List<HotelEntity> getAllHotels() {
+    public List<HotelDTO> getAllHotels() {
         List<HotelEntity> hotels = hotelRepo.findAll();
-        return hotelRepo.findAll();
+        List<HotelDTO> list = new ArrayList();
+        if (hotels != null) {
+            for (HotelEntity htlm : hotels) {
+                HotelDTO val = mapperService.mapHotelEntityToHotelDTO(htlm);
+                list.add(mapperService.mapHotelEntityToHotelDTO(htlm));
+            }
+        } else {
+            throw new ResourceNotFoundException("no Hotels found!");
+        }
+        return list;
     }
 
     @Override
-    public HotelEntity getHotelById(Long id) {
-        Optional<HotelEntity> optHotel = hotelRepo.findById(id);
-        if (optHotel.isPresent()) {
-            return optHotel.get();
+    public HotelDTO getHotelById(Long id) {
+        Optional<HotelEntity> opt = hotelRepo.findById(id);
+        if (opt.isPresent()) {
+            return mapperService.mapHotelEntityToHotelDTO(opt.get());
         } else {
-            throw new ResourceNotFoundException("no hotels found!");
+            throw new ResourceNotFoundException("no Hotel found with id " + id);
         }
     }
 
     @Override
-    public HotelEntity saveHotel(HotelEntity hotelEntity) {
-        HotelEntity hotel = hotelRepo.save(hotelEntity);
-        List<HotelMediaEntity> medias = hotelEntity.getHotelMedias();
-        medias.stream().map(media -> {
-            media.setHotel(hotel);
-            return media;
-        }).forEachOrdered(media -> {
-            hotelMediaRepo.save(media);
-        });
+    public HotelDTO saveHotel(HotelDTO dto) {
+        HotelEntity hotel = mapperService.mapHotelDTOToHotelEntity(dto);
+        hotelRepo.save(hotel);
 
-        return hotel;
+        List<HotelMediaDTO> medias = dto.getHotelMedias();
+        List<HotelMediaEntity> list = new ArrayList();
+        for (HotelMediaDTO media : medias) {
+            HotelMediaEntity ent = mapperService.mapHotelMediaDTOToHotelMediaEntity(media);
+            ent.setHotel(hotel);
+            hotelMediaRepo.save(ent);
+            list.add(ent);
+        }
+        hotel.setHotelMedias(list);
+        return mapperService.mapHotelEntityToHotelDTO(hotel);
     }
 
     @Override
-    public HotelEntity updateHotel(HotelEntity hotelEntity) throws ResourceNotFoundException {
-        Optional<HotelEntity> optHotel = hotelRepo.findById(hotelEntity.getId());
+    public HotelDTO updateHotel(HotelDTO hotelDTO) throws ResourceNotFoundException {
+        Optional<HotelEntity> optHotel = hotelRepo.findById(hotelDTO.getId());
         HotelEntity repoHotel = optHotel.get();
         if (optHotel.isPresent()) {
-            if (hotelEntity.getName() == null) {
-                hotelEntity.setName(repoHotel.getName());
+            if (hotelDTO.getName() == null) {
+                hotelDTO.setName(repoHotel.getName());
             }
-            if (hotelEntity.getCity() == null) {
-                hotelEntity.setCity(repoHotel.getName());
+            if (hotelDTO.getCity() == null) {
+                hotelDTO.setCity(repoHotel.getName());
             }
-            if (hotelEntity.getStreet() == null) {
-                hotelEntity.setStreet(repoHotel.getStreet());
+            if (hotelDTO.getStreet() == null) {
+                hotelDTO.setStreet(repoHotel.getStreet());
             }
-            if (hotelEntity.getPhone() == null) {
-                hotelEntity.setPhone(repoHotel.getPhone());
+            if (hotelDTO.getPhone() == null) {
+                hotelDTO.setPhone(repoHotel.getPhone());
             }
-            if (hotelEntity.getEmail() == null) {
-                hotelEntity.setEmail(repoHotel.getEmail());
+            if (hotelDTO.getEmail() == null) {
+                hotelDTO.setEmail(repoHotel.getEmail());
             }
-            if (hotelEntity.getBreakfastIncluded() == null) {
-                hotelEntity.setBreakfastIncluded(repoHotel.getBreakfastIncluded());
+            if (hotelDTO.getBreakfastIncluded() == null) {
+                hotelDTO.setBreakfastIncluded(repoHotel.getBreakfastIncluded());
             }
-            if (hotelEntity.getSingleRoom() == null) {
-                hotelEntity.setSingleRoom(repoHotel.getSingleRoom());
+            if (hotelDTO.getSingleRoom() == null) {
+                hotelDTO.setSingleRoom(repoHotel.getSingleRoom());
             }
-            if (hotelEntity.getDoubleRoom() == null) {
-                hotelEntity.setDoubleRoom(repoHotel.getDoubleRoom());
+            if (hotelDTO.getDoubleRoom() == null) {
+                hotelDTO.setDoubleRoom(repoHotel.getDoubleRoom());
             }
-            if (hotelEntity.getTripleRoom() == null) {
-                hotelEntity.setTripleRoom(repoHotel.getTripleRoom());
+            if (hotelDTO.getTripleRoom() == null) {
+                hotelDTO.setTripleRoom(repoHotel.getTripleRoom());
             }
-            if (hotelEntity.getDescription() == null) {
-                hotelEntity.setDescription(repoHotel.getDescription());
+            if (hotelDTO.getDescription() == null) {
+                hotelDTO.setDescription(repoHotel.getDescription());
             }
-            HotelEntity ent = hotelRepo.save(optHotel.get());
-            List<HotelMediaEntity> medias = hotelEntity.getHotelMedias();
-            medias.stream().map(media -> {
-                media.setHotel(ent);
-                return media;
-            }).forEachOrdered(media -> {
-                hotelMediaRepo.save(media);
+
+            HotelEntity savedEntity = hotelRepo.save(mapperService.mapHotelDTOToHotelEntity(hotelDTO));
+
+            List<HotelMediaDTO> medias = hotelDTO.getHotelMedias();
+
+            medias.stream().map(dto -> mapperService.mapHotelMediaDTOToHotelMediaEntity(dto)).map(mediaent -> {
+                mediaent.setHotel(savedEntity);
+                return mediaent;
+            }).forEachOrdered(mediaent -> {
+                hotelMediaRepo.save(mediaent);
             });
 
-            return ent;
+            return mapperService.mapHotelEntityToHotelDTO(savedEntity);
         } else {
-            throw new ResourceNotFoundException("no hotel found with id: " + hotelEntity.getId());
+            throw new ResourceNotFoundException("no hotel found with id: " + hotelDTO.getId());
         }
     }
 

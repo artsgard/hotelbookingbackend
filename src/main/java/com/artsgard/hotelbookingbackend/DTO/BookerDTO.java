@@ -78,12 +78,12 @@ public class BookerDTO implements Serializable {
     private Date bookingDate;
 
     @NotNull
-    private ClientEntity client;
+    private ClientDTO client;
     
     private Integer nights;
     
     private BigDecimal finalPrice;
     
     @NotNull
-    private HotelEntity hotel;
+    private HotelDTO hotel;
 }

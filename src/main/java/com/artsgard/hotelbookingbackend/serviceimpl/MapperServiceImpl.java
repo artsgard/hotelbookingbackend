@@ -6,8 +6,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.artsgard.hotelbookingbackend.DTO.BookerDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelMediaDTO;
 import com.artsgard.hotelbookingbackend.entity.ClientEntity;
 import com.artsgard.hotelbookingbackend.entity.BookerEntity;
+import com.artsgard.hotelbookingbackend.entity.HotelEntity;
+import com.artsgard.hotelbookingbackend.entity.HotelMediaEntity;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.LoggerFactory;
 import com.artsgard.hotelbookingbackend.repository.BookerRepository;
@@ -67,6 +71,46 @@ public class MapperServiceImpl implements MapperService {
         if (ent != null) {
             ClientEntity clntEntity = modelMapper.map(ent, ClientEntity.class);
             return clntEntity;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public HotelDTO mapHotelEntityToHotelDTO(HotelEntity ent) {
+        if (ent != null) {
+            HotelDTO hotelDTO = modelMapper.map(ent, HotelDTO.class);
+            return hotelDTO;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public HotelEntity mapHotelDTOToHotelEntity(HotelDTO dto) {
+         if (dto != null) {
+            HotelEntity htlEntity = modelMapper.map(dto, HotelEntity.class);
+            return htlEntity;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public HotelMediaDTO mapHotelMediaEntityToHotelMediaDTO(HotelMediaEntity ent) {
+        if (ent != null) {
+            HotelMediaDTO hotelMediaDTO = modelMapper.map(ent, HotelMediaDTO.class);
+            return hotelMediaDTO;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public HotelMediaEntity mapHotelMediaDTOToHotelMediaEntity(HotelMediaDTO dto) {
+         if (dto != null) {
+            HotelMediaEntity htlEntity = modelMapper.map(dto, HotelMediaEntity.class);
+            return htlEntity;
         } else {
             return null;
         }

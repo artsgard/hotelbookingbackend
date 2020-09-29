@@ -1,6 +1,7 @@
 package com.artsgard.hotelbookingbackend.serviceimpl;
 
 import com.artsgard.hotelbookingbackend.DTO.BookerDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelDTO;
 import com.artsgard.hotelbookingbackend.entity.BookerEntity;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.exception.ResourceNotFoundException;
@@ -70,7 +71,7 @@ public class BookerServiceImpl implements BookerService {
         BookerEntity ent = mapperService.mapBookerDTOToBookerEntity(bookerDTO);
         ent.setBookingDate(new Date());
 
-        HotelEntity hotel = bookerDTO.getHotel();
+        HotelDTO hotel = bookerDTO.getHotel();
 
         BigDecimal roomPrice = new BigDecimal("0");
 
@@ -87,7 +88,7 @@ public class BookerServiceImpl implements BookerService {
             default:
                 break;
         }
-        
+
         if (bookerDTO.getBreakfastIncluded()) {
             roomPrice = roomPrice.add(hotel.getBreakfastIncluded());
         }

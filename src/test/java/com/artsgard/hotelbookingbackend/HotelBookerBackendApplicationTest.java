@@ -1,4 +1,4 @@
-package com.artsgard.flightbookingbackend;
+package com.artsgard.hotelbookingbackend;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

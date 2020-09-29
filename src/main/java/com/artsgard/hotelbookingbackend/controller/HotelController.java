@@ -2,6 +2,7 @@ package com.artsgard.hotelbookingbackend.controller;
 
 import com.artsgard.hotelbookingbackend.DTO.BookerDTO;
 import com.artsgard.hotelbookingbackend.DTO.ClientDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelDTO;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import java.util.List;
 import org.slf4j.LoggerFactory;
@@ -29,30 +30,29 @@ public class HotelController {
     private HotelService hotelService;
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<HotelEntity>> getAllHotels() {
-        List<HotelEntity> list = hotelService.getAllHotels();
+    public ResponseEntity<List<HotelDTO>> getAllHotels() {
         return new ResponseEntity<>(hotelService.getAllHotels(), HttpStatus.OK);
     }
     
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<HotelEntity> getHotelById(Long id) {
+    public ResponseEntity<HotelDTO> getHotelById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(hotelService.getHotelById(id), HttpStatus.OK);
     }
     
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<HotelEntity> saveHotel(@Valid @RequestBody HotelEntity hotelEntity) {
-        HotelEntity hotel = hotelService.saveHotel(hotelEntity);
+    public ResponseEntity<HotelDTO> saveHotel(@Valid @RequestBody HotelDTO hotelDTO) {
+        HotelDTO hotel = hotelService.saveHotel(hotelDTO);
         return new ResponseEntity<>(hotel, HttpStatus.CREATED);
         //return ResponseEntity.status(HttpStatus.CREATED).body(client);
     }
 
     @PutMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<HotelEntity> updateHotel(@Valid @RequestBody HotelEntity hotelEntity) {
-        return new ResponseEntity<>(hotelService.updateHotel(hotelEntity), HttpStatus.OK);
+    public ResponseEntity<HotelDTO> updateHotel(@Valid @RequestBody HotelDTO hotelDTO) {
+        return new ResponseEntity<>(hotelService.updateHotel(hotelDTO), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<HotelEntity> deleteHotelById(@PathVariable("id") Long id) {
+    public ResponseEntity<HotelDTO> deleteHotelById(@PathVariable("id") Long id) {
         hotelService.deleteHotelById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

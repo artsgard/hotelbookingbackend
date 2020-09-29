@@ -33,6 +33,7 @@ public class BookerController {
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<BookerDTO>> findAllBookings() {
+        List<BookerDTO> list = bookerService.findAllBookings();
         return new ResponseEntity<>(bookerService.findAllBookings(), HttpStatus.OK);
     }
 

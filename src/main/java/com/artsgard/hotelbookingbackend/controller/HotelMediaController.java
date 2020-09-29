@@ -1,5 +1,6 @@
 package com.artsgard.hotelbookingbackend.controller;
 
+import com.artsgard.hotelbookingbackend.DTO.HotelMediaDTO;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.entity.HotelMediaEntity;
 import com.artsgard.hotelbookingbackend.service.HotelMediaService;
@@ -28,17 +29,17 @@ public class HotelMediaController {
     private HotelMediaService hotelMediaService;
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<HotelMediaEntity>> getAllHotelMedias() {
+    public ResponseEntity<List<HotelMediaDTO>> getAllHotelMedias() {
         return new ResponseEntity<>(hotelMediaService.getAllHotelMedias(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<HotelMediaEntity> getHotelMediaById(Long id) {
+    public ResponseEntity<HotelMediaDTO> getHotelMediaById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(hotelMediaService.getHotelMediaById(id), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<HotelEntity> deleteHotelMediaById(@PathVariable("id") Long id) {
+    public ResponseEntity<HotelMediaDTO> deleteHotelMediaById(@PathVariable("id") Long id) {
         hotelMediaService.deleteHotelMediaById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
