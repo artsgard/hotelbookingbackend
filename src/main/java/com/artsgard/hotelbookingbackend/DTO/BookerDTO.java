@@ -4,12 +4,14 @@ import com.artsgard.hotelbookingbackend.entity.BookerEntity.RoomType;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.entity.ClientEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -54,6 +56,7 @@ import lombok.NoArgsConstructor;
  * 
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class BookerDTO implements Serializable {
     

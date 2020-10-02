@@ -5,9 +5,11 @@
  */
 package com.artsgard.hotelbookingbackend.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
  * @author artsgard
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class HotelDTO {
     
@@ -49,7 +52,7 @@ public class HotelDTO {
     @NotNull
     private BigDecimal breakfastIncluded;
     
-    private List<BookerDTO> hotelBookings;
+    //private List<BookerDTO> hotelBookings;
     
     private List<HotelMediaDTO> hotelMedias;
 }

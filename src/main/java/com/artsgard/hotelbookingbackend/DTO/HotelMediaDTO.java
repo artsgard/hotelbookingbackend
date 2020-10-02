@@ -8,6 +8,7 @@ package com.artsgard.hotelbookingbackend.DTO;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
  * @author artsgard
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class HotelMediaDTO {
   
