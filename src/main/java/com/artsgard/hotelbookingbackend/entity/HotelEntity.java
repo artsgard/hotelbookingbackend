@@ -67,8 +67,5 @@ public class HotelEntity implements Serializable {
     private BigDecimal breakfastIncluded;
     
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
-    private List<BookerEntity> hotelBookings;
-    
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<HotelMediaEntity> hotelMedias;
 }

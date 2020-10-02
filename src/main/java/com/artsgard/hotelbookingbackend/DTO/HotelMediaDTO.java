@@ -7,6 +7,7 @@ package com.artsgard.hotelbookingbackend.DTO;
 
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class HotelMediaDTO {
     private String description;
     
     @NotNull
-    @JsonIgnore
-    private HotelEntity hotel;
+    @JsonIgnoreProperties("hotelMedias")
+    //@JsonIgnore
+    private HotelDTO hotel;
 }

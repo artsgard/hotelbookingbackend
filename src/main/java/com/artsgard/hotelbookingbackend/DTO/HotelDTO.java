@@ -52,7 +52,6 @@ public class HotelDTO {
     @NotNull
     private BigDecimal breakfastIncluded;
     
-    //private List<BookerDTO> hotelBookings;
-    
+    @NotNull
     private List<HotelMediaDTO> hotelMedias;
 }

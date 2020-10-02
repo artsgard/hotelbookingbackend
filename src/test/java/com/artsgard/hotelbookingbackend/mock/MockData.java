@@ -39,9 +39,12 @@ public final class MockData {
     
      public static HotelEntity generateHotel() {
         Date now = new Date();
+        HotelMediaEntity media = new HotelMediaEntity(1L, "", "", "", null);
+        List<HotelMediaEntity> medias = new ArrayList();
+        medias.add(media);
         HotelEntity hotel = new HotelEntity(1L, "hotel-name", "hotel-description", "hotel-city", "hotel-street",
                 111111, "hotel-email@gamil.com", new BigDecimal("11.11"), new BigDecimal("11.12"),
-                new BigDecimal("11.13"), new BigDecimal("11.14"), null, null);
+                new BigDecimal("11.13"), new BigDecimal("11.14"), medias);
         return hotel;
      }
 
@@ -49,17 +52,17 @@ public final class MockData {
         Date now = new Date();
         HotelEntity hotel1 = new HotelEntity(1L, "hotel-name1", "hotel-description1", "hotel-city1", "hotel-street1",
                 111111, "hotel-email1@gamil.com", new BigDecimal("11.11"), new BigDecimal("11.12"),
-                new BigDecimal("11.13"), new BigDecimal("11.14"), null, null);
+                new BigDecimal("11.13"), new BigDecimal("11.14"), null);
         HotelMediaEntity hotelMedia1 = new HotelMediaEntity(1L, "media-title1", "media-link1", "media-description1", hotel1);
 
         HotelEntity hotel2 = new HotelEntity(1L, "hotel-name2", "hotel-description2", "hotel-city2", "hotel-street2",
                 222222, "hotel-email2@gamil.com", new BigDecimal("22.21"), new BigDecimal("22.22"),
-                new BigDecimal("22.23"), new BigDecimal("22.24"), null, null);
+                new BigDecimal("22.23"), new BigDecimal("22.24"), null);
         HotelMediaEntity hotelMedia2 = new HotelMediaEntity(1L, "media-title2", "media-link2", "media-description2", hotel2);
 
         HotelEntity hotel3 = new HotelEntity(1L, "hotel-name3", "hotel-description3", "hotel-city3", "hotel-street3",
                 111111, "hotel-email3@gamil.com", new BigDecimal("33.31"), new BigDecimal("33.32"),
-                new BigDecimal("33.3"), new BigDecimal("33.34"), null, null);
+                new BigDecimal("33.3"), new BigDecimal("33.34"), null);
         HotelMediaEntity hotelMedia3 = new HotelMediaEntity(1L, "media-title3", "media-link3", "media-description3", hotel3);
 
         List<HotelEntity> hotels = new ArrayList();

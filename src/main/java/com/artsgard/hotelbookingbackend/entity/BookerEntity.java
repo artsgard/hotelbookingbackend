@@ -66,13 +66,13 @@ public class BookerEntity implements Serializable {
     private BigDecimal finalPrice;
 
     @NotNull
-    @JsonIgnore
+    @JsonIgnoreProperties("clientBookings")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity client;
     
     @NotNull
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private HotelEntity hotel;

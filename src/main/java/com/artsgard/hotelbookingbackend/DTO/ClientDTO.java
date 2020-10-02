@@ -46,5 +46,5 @@ public class ClientDTO implements Serializable {
 
     private Date registerDate;
     
-    private List<BookerEntity> clientBookings;
+    private List<BookerDTO> clientBookings;
 }
