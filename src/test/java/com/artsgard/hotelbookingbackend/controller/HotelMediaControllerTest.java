@@ -60,8 +60,8 @@ public class HotelMediaControllerTest {
 
         hotelMediaDTO = mapperService.mapHotelMediaEntityToHotelMediaDTO(MockData.generateHotelMedia());
         hotelMediasDTO = new ArrayList();
-        MockData.generateHotelMedias().forEach((sci) -> {
-            hotelMediasDTO.add(mapperService.mapHotelMediaEntityToHotelMediaDTO(sci));
+        MockData.generateHotelMedias().forEach((val) -> {
+            hotelMediasDTO.add(mapperService.mapHotelMediaEntityToHotelMediaDTO(val));
         });
     }
 

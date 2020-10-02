@@ -1,12 +1,20 @@
 package com.artsgard.hotelbookingbackend.mock;
 
+import com.artsgard.hotelbookingbackend.DTO.BookerDTO;
+import com.artsgard.hotelbookingbackend.DTO.ClientDTO;
+import com.artsgard.hotelbookingbackend.DTO.HotelDTO;
+import com.artsgard.hotelbookingbackend.entity.BookerEntity;
+import com.artsgard.hotelbookingbackend.entity.BookerEntity.RoomType;
 import com.artsgard.hotelbookingbackend.entity.ClientEntity;
 import com.artsgard.hotelbookingbackend.entity.HotelEntity;
 import com.artsgard.hotelbookingbackend.entity.HotelMediaEntity;
+import com.artsgard.hotelbookingbackend.service.MapperService;
+import com.artsgard.hotelbookingbackend.serviceimpl.MapperServiceImpl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import static org.mockito.ArgumentMatchers.any;
 
 /**
  *
@@ -16,6 +24,8 @@ public final class MockData {
 
     private MockData() {
     }
+    
+    private static final MapperService mapperService = new MapperServiceImpl();
 
     public static ClientEntity generateClient() {
         //Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -36,9 +46,8 @@ public final class MockData {
         clients.add(client3);
         return clients;
     }
-    
-     public static HotelEntity generateHotel() {
-        Date now = new Date();
+
+    public static HotelEntity generateHotel() {
         HotelMediaEntity media = new HotelMediaEntity(1L, "", "", "", null);
         List<HotelMediaEntity> medias = new ArrayList();
         medias.add(media);
@@ -46,7 +55,7 @@ public final class MockData {
                 111111, "hotel-email@gamil.com", new BigDecimal("11.11"), new BigDecimal("11.12"),
                 new BigDecimal("11.13"), new BigDecimal("11.14"), medias);
         return hotel;
-     }
+    }
 
     public static List<HotelEntity> generateHotels() {
         Date now = new Date();
@@ -71,12 +80,12 @@ public final class MockData {
         hotels.add(hotel3);
         return hotels;
     }
-    
-     public static HotelMediaEntity generateHotelMedia() {
-          HotelMediaEntity media = new HotelMediaEntity(1L, "client-username1", "secret1", "client-first-name1", generateHotel());
-          return media;
-     }
-    
+
+    public static HotelMediaEntity generateHotelMedia() {
+        HotelMediaEntity media = new HotelMediaEntity(1L, "client-username1", "secret1", "client-first-name1", generateHotel());
+        return media;
+    }
+
     public static List<HotelMediaEntity> generateHotelMedias() {
         HotelMediaEntity media1 = new HotelMediaEntity(1L, "client-username1", "secret1", "client-first-name1", generateHotel());
         HotelMediaEntity media2 = new HotelMediaEntity(2L, "client-username1", "secret2", "client-first-name2", generateHotel());
@@ -87,5 +96,40 @@ public final class MockData {
         medias.add(media2);
         medias.add(media3);
         return medias;
+    }
+
+    public static BookerDTO generateBooker() {
+        BookerDTO booker = new BookerDTO(1L, new Date(), new Date(),
+                RoomType.DOUBLE, true, new Date(), 3, new BigDecimal("100.00"),
+                mapperService.mapHotelEntityToHotelDTO(generateHotel()), 
+                mapperService.mapClientEntityToClientDTO(generateClient()));
+        return booker;
+    }
+
+    public static List<BookerDTO> generateBookers() {
+        BookerDTO booker1 = new BookerDTO(1L, new Date(), new Date(),
+                RoomType.SINGLE, true,
+                new Date(), 4,
+                new BigDecimal("23"),
+                mapperService.mapHotelEntityToHotelDTO(generateHotel()),
+                mapperService.mapClientEntityToClientDTO(generateClient()));
+        BookerDTO booker2 = new BookerDTO(1L, new Date(), new Date(),
+                RoomType.DOUBLE, false,
+                new Date(), 15,
+                new BigDecimal("120.00"),
+                mapperService.mapHotelEntityToHotelDTO(generateHotel()),
+                 mapperService.mapClientEntityToClientDTO(generateClient()));
+        BookerDTO booker3 = new BookerDTO(1L, new Date(), new Date(),
+                RoomType.TRIPLE, true,
+                new Date(), 12,
+                new BigDecimal("150.00"),
+                mapperService.mapHotelEntityToHotelDTO(generateHotel()),
+                 mapperService.mapClientEntityToClientDTO(generateClient()));
+        
+        List<BookerDTO> bookers = new ArrayList();
+        bookers.add(booker1);
+        bookers.add(booker2);
+        bookers.add(booker3);
+        return bookers;
     }
 }

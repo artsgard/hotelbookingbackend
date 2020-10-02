@@ -59,8 +59,8 @@ public class ClientControllerMockitoTest {
 
         clientDTO = mapperService.mapClientEntityToClientDTO(MockData.generateClient());
         clientsDTO = new ArrayList();
-        MockData.generateClients().forEach((sci) -> {
-            clientsDTO.add(mapperService.mapClientEntityToClientDTO(sci));
+        MockData.generateClients().forEach((clt) -> {
+            clientsDTO.add(mapperService.mapClientEntityToClientDTO(clt));
         });
     }
 

@@ -60,8 +60,8 @@ public class HotelControllerServerTest {
     public void setup() {
         hotel = mapperService.mapHotelEntityToHotelDTO(MockData.generateHotel());
         hotels = new ArrayList();
-        MockData.generateHotels().forEach((sci) -> {
-            hotels.add(mapperService.mapHotelEntityToHotelDTO(sci));
+        MockData.generateHotels().forEach((val) -> {
+            hotels.add(mapperService.mapHotelEntityToHotelDTO(val));
         });
     }
 

@@ -1,21 +1,14 @@
 package com.artsgard.hotelbookingbackend.DTO;
 
 import com.artsgard.hotelbookingbackend.entity.BookerEntity.RoomType;
-import com.artsgard.hotelbookingbackend.entity.HotelEntity;
-import com.artsgard.hotelbookingbackend.entity.ClientEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,12 +18,23 @@ import lombok.NoArgsConstructor;
  * 
 */
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class BookerDTO implements Serializable {
-    
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    
+
+    public BookerDTO(Long id, Date checkInDate, Date checkOutDate, RoomType roomType, Boolean breakfastIncluded, Date bookingDate, Integer nights, BigDecimal finalPrice, HotelDTO hotel, ClientDTO client) {
+        this.id = id;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.roomType = roomType;
+        this.breakfastIncluded = breakfastIncluded;
+        this.bookingDate = bookingDate;
+        this.nights = nights;
+        this.finalPrice = finalPrice;
+        this.hotel = hotel;
+        this.client = client;
+    }
+
     private Long id;;
 
     @NotNull
@@ -60,5 +64,5 @@ public class BookerDTO implements Serializable {
     @JsonIgnoreProperties("clientBookings")
     //@JsonIgnore
     private ClientDTO client;
-    
+
 }
