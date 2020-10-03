@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artsgard.hotelbookingbackend.DTO;
 
-import com.artsgard.hotelbookingbackend.entity.HotelEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  *
  * @author artsgard
+ * https://www.concretepage.com/jackson-api/jackson-jsonignore-jsonignoreproperties-and-jsonignoretype
  */
 @Data
 @AllArgsConstructor
@@ -33,7 +27,6 @@ public class HotelMediaDTO {
     private String description;
     
     @NotNull
-    @JsonIgnoreProperties("hotelMedias")
-    //@JsonIgnore
+    @JsonIgnoreProperties({"hotelMedias"})
     private HotelDTO hotel;
 }
