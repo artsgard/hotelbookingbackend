@@ -6,7 +6,6 @@ import com.artsgard.hotelbookingbackend.exception.ResourceNotFoundException;
 import com.artsgard.hotelbookingbackend.repository.HotelRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
