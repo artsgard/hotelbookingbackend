@@ -28,9 +28,8 @@ public class HotelServiceDataJpaTest {
     @Test
     public void testGetAllHotels() {
         List<HotelEntity> hotels = hotelRepo.findAll();
-        hotels.size();
         assertThat(hotels).isNotEmpty();
-        assertThat(hotels).hasSize(1);
+        assertThat(hotels).hasSize(3);
     }
     
     @Test

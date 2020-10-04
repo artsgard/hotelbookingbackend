@@ -47,6 +47,7 @@ public class HotelMediaEntity implements Serializable {
     @NotNull
     @JsonIgnoreProperties({"hotelMedias"})
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "hotel_id", nullable = true)
     @JoinColumn(name = "hotel_id")
     private HotelEntity hotel;
 }

@@ -44,10 +44,10 @@ public class BookerDTO implements Serializable {
     
     @NotNull
     @JsonIgnoreProperties("clientBookings")
-    //@JsonIgnore
     private ClientDTO client;
     
     @NotNull
+    @JsonIgnoreProperties("hotelMedias")
     private HotelDTO hotel;
 
 }
