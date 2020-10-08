@@ -64,8 +64,11 @@ public class HotelServiceImpl implements HotelService {
         try {
             String dirNameWithScore = dto.getName().replaceAll(" ", "-");
             String[] extArray = dto.getHotelMedias().get(0).getTempFileName().split("\\.");
-            String fileExtention = "." +  extArray[1];
+            String fileExtention = "";
             
+            if(extArray.length > 0) {
+                fileExtention = "." +  extArray[extArray.length - 1];
+            }
             
             changeDirName(dto.getHotelMedias().get(0).getTempDirName(), dirNameWithScore);
             changeFileNameInDir(dto.getHotelMedias().get(0).getTempFileName(), dto.getHotelMedias().get(0).getLink()+ fileExtention, dirNameWithScore);
