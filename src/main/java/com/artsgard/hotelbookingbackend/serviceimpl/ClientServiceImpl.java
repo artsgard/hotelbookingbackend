@@ -45,10 +45,9 @@ public class ClientServiceImpl implements ClientService {
         } else {
             List<ClientDTO> clientList = new ArrayList();
 
-            for (ClientEntity clnt : clients) {
-                ClientDTO clntDTO = mapperService.mapClientEntityToClientDTO(clnt);
+            clients.stream().map(clnt -> mapperService.mapClientEntityToClientDTO(clnt)).forEachOrdered(clntDTO -> {
                 clientList.add(clntDTO);
-            }
+            });
             return clientList;
         }
     }

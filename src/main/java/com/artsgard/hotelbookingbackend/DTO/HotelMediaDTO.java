@@ -29,4 +29,7 @@ public class HotelMediaDTO {
     @NotNull
     @JsonIgnoreProperties({"hotelMedias"})
     private HotelDTO hotel;
+    
+    private String tempFileName;
+    private String tempDirName;
 }

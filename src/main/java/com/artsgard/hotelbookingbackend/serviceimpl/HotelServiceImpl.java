@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import com.artsgard.hotelbookingbackend.repository.HotelRepository;
 import com.artsgard.hotelbookingbackend.service.HotelService;
 import com.artsgard.hotelbookingbackend.service.MapperService;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -23,6 +26,9 @@ public class HotelServiceImpl implements HotelService {
 
     @Autowired
     HotelMediaRepository hotelMediaRepo;
+    
+    @Autowired
+    FileLoadService fileService;
 
     @Autowired
     private MapperService mapperService;
@@ -54,19 +60,33 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public HotelDTO saveHotel(HotelDTO dto) {
-        HotelEntity hotel = mapperService.mapHotelDTOToHotelEntity(dto);
-        hotelRepo.save(hotel);
-
-        List<HotelMediaDTO> medias = dto.getHotelMedias();
-        List<HotelMediaEntity> list = new ArrayList();
-        for (HotelMediaDTO media : medias) {
-            HotelMediaEntity ent = mapperService.mapHotelMediaDTOToHotelMediaEntity(media);
-            ent.setHotel(hotel);
-            hotelMediaRepo.save(ent);
-            list.add(ent);
+        
+        try {
+            String dirNameWithScore = dto.getName().replaceAll(" ", "-");
+            String[] extArray = dto.getHotelMedias().get(0).getTempFileName().split("\\.");
+            String fileExtention = "." +  extArray[1];
+            
+            
+            changeDirName(dto.getHotelMedias().get(0).getTempDirName(), dirNameWithScore);
+            changeFileNameInDir(dto.getHotelMedias().get(0).getTempFileName(), dto.getHotelMedias().get(0).getLink()+ fileExtention, dirNameWithScore);
+                     
+            HotelEntity hotel = mapperService.mapHotelDTOToHotelEntity(dto);
+            hotelRepo.save(hotel);
+            
+            List<HotelMediaDTO> medias = dto.getHotelMedias();
+            List<HotelMediaEntity> list = new ArrayList();
+            for (HotelMediaDTO media : medias) {
+                HotelMediaEntity ent = mapperService.mapHotelMediaDTOToHotelMediaEntity(media);
+                ent.setHotel(hotel);
+                hotelMediaRepo.save(ent);
+                list.add(ent);
+            }
+            hotel.setHotelMedias(list);
+            return mapperService.mapHotelEntityToHotelDTO(hotel);
+        } catch (IOException ex) {
+            Logger.getLogger(HotelServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+           return null;
         }
-        hotel.setHotelMedias(list);
-        return mapperService.mapHotelEntityToHotelDTO(hotel);
     }
 
     @Override
@@ -130,5 +150,13 @@ public class HotelServiceImpl implements HotelService {
         } else {
             throw new ResourceNotFoundException("no hotel found with id: " + id);
         }
+    }
+    
+    private void changeDirName(String oldName, String newName) throws IOException {
+        fileService.renameDir(oldName, newName);
+    }
+    
+     private void changeFileNameInDir(String oldName, String newName, String dirName) throws IOException {
+        fileService.renameFileInDir(oldName, newName, dirName);
     }
 }
