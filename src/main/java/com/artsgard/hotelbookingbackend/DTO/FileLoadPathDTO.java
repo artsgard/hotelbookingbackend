@@ -3,7 +3,7 @@ package com.artsgard.hotelbookingbackend.DTO;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "file")
-public class FileUploadPathDTO {
+public class FileLoadPathDTO {
    
     private String uploadPath;
 

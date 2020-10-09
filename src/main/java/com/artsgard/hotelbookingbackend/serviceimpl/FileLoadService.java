@@ -1,7 +1,7 @@
 package com.artsgard.hotelbookingbackend.serviceimpl;
 
 import com.artsgard.hotelbookingbackend.DTO.FileLoadInfoDTO;
-import com.artsgard.hotelbookingbackend.DTO.FileUploadPathDTO;
+import com.artsgard.hotelbookingbackend.DTO.FileLoadPathDTO;
 import com.artsgard.hotelbookingbackend.exception.FileNotFoundException;
 import com.artsgard.hotelbookingbackend.exception.FileUploadException;
 import java.io.File;
@@ -24,27 +24,25 @@ import org.apache.tomcat.util.http.fileupload.FileUtils;
 @Service
 public class FileLoadService {
 
-    private final Path fileUploadPath;
+    private final Path filePath;
     private String filePathString;
 
     @Autowired
-    public FileLoadService(FileUploadPathDTO filePath) {
-        filePathString = filePath.getUploadPath();
-        this.fileUploadPath = Paths.get(filePathString).toAbsolutePath().normalize();
+    public FileLoadService(FileLoadPathDTO fileLoadPath) {
+        filePathString = fileLoadPath.getUploadPath();
+        this.filePath = Paths.get(filePathString).toAbsolutePath().normalize();
 
         try {
-            Files.createDirectories(this.fileUploadPath);
+            Files.createDirectories(this.filePath);
         } catch (Exception ex) {
             throw new FileUploadException("Could not create the directory where the uploaded files will be stored.", ex);
         }
     }
 
-    public FileLoadInfoDTO storeFile(MultipartFile file) {
-        // Normalize file name
+    public FileLoadInfoDTO uploadFile(MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            // Check if the file's name contains invalid characters
             if (fileName.contains("..")) {
                 throw new FileUploadException("Sorry! Filename contains invalid path sequence " + fileName);
             }
@@ -57,7 +55,6 @@ public class FileLoadService {
 
             Path path = Paths.get(sb.toString()).toAbsolutePath().normalize();
 
-            // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = path.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
@@ -73,9 +70,10 @@ public class FileLoadService {
         }
     }
 
-    public Resource loadFileAsResource(String fileName) {
+    public Resource downloadFile(String fileName) {
         try {
-            Path filePath = this.fileUploadPath.resolve(fileName).normalize();
+            Path filePath = this.filePath.resolve(fileName).normalize();
+            //Byte byte [] imageByteArray = new File(this.filePath.toString()).readBytes();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;
@@ -88,9 +86,10 @@ public class FileLoadService {
     }
 
     // ================================================================================
+    
     public void createDir(String dirName) throws IOException {
         try {
-            Path path = Paths.get(fileUploadPath.toString() + File.separator + dirName);
+            Path path = Paths.get(filePath.toString() + File.separator + dirName);
             Files.createDirectories(path);
             System.out.println("Directory is created with name: " + dirName);
         } catch (IOException e) {
@@ -105,7 +104,7 @@ public class FileLoadService {
             throw new java.io.IOException("dir allready exists");
         }
         try {
-            Path oldFile = Paths.get(fileUploadPath.toString() + File.separator + oldName);
+            Path oldFile = Paths.get(filePath.toString() + File.separator + oldName);
             Files.move(oldFile, oldFile.resolveSibling(newName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             Logger.getLogger(FileLoadService.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,7 +113,7 @@ public class FileLoadService {
 
     public void createFileInDir(String dirName, String fileName) {
         try {
-            File f = new File(fileUploadPath.toString() + File.separator + dirName + File.separator + fileName);
+            File f = new File(filePath.toString() + File.separator + dirName + File.separator + fileName);
             f.getParentFile().mkdirs();
             f.createNewFile();
             System.out.println("createFile " + fileName);
@@ -130,7 +129,7 @@ public class FileLoadService {
             throw new java.io.IOException("file exists");
         }
         try {
-            Path oldFile = Paths.get(fileUploadPath.toString() + File.separator + dirName + File.separator + oldFileName);
+            Path oldFile = Paths.get(filePath.toString() + File.separator + dirName + File.separator + oldFileName);
             Files.move(oldFile, oldFile.resolveSibling(newFileName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             Logger.getLogger(FileLoadService.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,7 +138,7 @@ public class FileLoadService {
     }
 
     public void deleteFileInDir(String fileName, String dirName) {
-        File file = new File(fileUploadPath.toString() + File.separator + dirName + File.separator + fileName);
+        File file = new File(filePath.toString() + File.separator + dirName + File.separator + fileName);
         file.exists();
         if (file.delete()) {
             System.out.println("File deleted from wit name: " + fileName);
@@ -150,7 +149,7 @@ public class FileLoadService {
     }
 
     public void deleteDir(String dirName) {
-        File file = new File(fileUploadPath.toString() + File.separator + dirName);
+        File file = new File(filePath.toString() + File.separator + dirName);
         file.exists();
         try {
             FileUtils.deleteDirectory(file);

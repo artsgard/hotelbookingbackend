@@ -1,6 +1,6 @@
 package com.artsgard.hotelbookingbackend;
 
-import com.artsgard.hotelbookingbackend.DTO.FileUploadPathDTO;
+import com.artsgard.hotelbookingbackend.DTO.FileLoadPathDTO;
 import javax.servlet.Filter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @PropertySource({"classpath:application.properties"})
 @EnableConfigurationProperties({
-		FileUploadPathDTO.class
+		FileLoadPathDTO.class
 })
 public class HotelBookingBackendApplication {
     public static void main(String[] args) {
